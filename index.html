@@ -9,123 +9,141 @@
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Sarabun', sans-serif; }
-        body { background-color: #f4f7f6; color: #333; max-width: 480px; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); min-height: 100vh; position: relative; padding-bottom: 75px; }
+        body { background-color: #f0f4f3; color: #333; max-width: 480px; margin: 0 auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); min-height: 100vh; position: relative; padding-bottom: 75px; }
         
-        /* 1. หน้าจอเข้าสู่ระบบ (Login) */
+        /* 1. สไตล์หน้าจอเข้าสู่ระบบ (Login) */
         .login-screen { padding: 40px 20px; text-align: center; background: white; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
-        .login-logo { font-size: 55px; color: #0288d1; margin-bottom: 15px; }
-        .login-screen h2 { color: #004d40; margin-bottom: 5px; font-size: 24px; font-weight: 700; }
+        .login-logo { font-size: 50px; color: #0288d1; margin-bottom: 15px; }
+        .login-screen h2 { color: #004d40; margin-bottom: 5px; font-size: 24px; }
         .login-screen p { color: #666; font-size: 14px; margin-bottom: 30px; }
-        .role-selector { display: flex; gap: 10px; margin-bottom: 25px; }
-        .role-btn { flex: 1; padding: 14px; border: 2px solid #ddd; border-radius: 12px; background: white; cursor: pointer; font-weight: 600; color: #666; font-size: 14px; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .role-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .role-btn { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 10px; background: white; cursor: pointer; font-weight: 600; color: #666; font-size: 14px; }
         .role-btn.active { border-color: #0288d1; color: #0288d1; background: #e1f5fe; }
-        .role-btn i { font-size: 20px; }
-        .input-group { margin-bottom: 18px; text-align: left; }
-        .input-group label { display: block; font-size: 13px; color: #555; margin-bottom: 6px; font-weight: 600; }
-        .input-group input { width: 100%; padding: 12px 15px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
-        .btn-login { background: linear-gradient(135deg, #0288d1, #26a69a); color: white; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; box-shadow: 0 4px 10px rgba(2,136,209,0.2); }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-size: 13px; color: #666; margin-bottom: 5px; font-weight: 600; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; }
+        .btn-login { background: linear-gradient(135deg, #0288d1, #26a69a); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; }
 
-        /* โครงสร้างหน้าหลักแอปพลิเคชัน */
+        /* ส่วนหัวแอปพลิเคชัน */
         .main-app { display: none; }
         header { background: linear-gradient(135deg, #0288d1, #26a69a); color: white; padding: 25px 20px; text-align: center; border-bottom-left-radius: 25px; border-bottom-right-radius: 25px; position: relative; }
-        header h1 { font-size: 22px; font-weight: 700; margin-bottom: 5px; }
+        header h1 { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
         header p { font-size: 12px; opacity: 0.9; }
-        .btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; padding: 6px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; font-weight: 600; }
+        .btn-logout { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; }
         
         .container { padding: 15px; }
         
-        /* การ์ดแดชบอร์ดแสดงพอยต์สะสม */
-        .wallet-card { background: linear-gradient(135deg, #111, #333); color: white; border-radius: 15px; padding: 15px 20px; margin-top: -25px; margin-bottom: 20px; box-shadow: 0 8px 15px rgba(0,0,0,0.15); display: flex; justify-content: space-between; align-items: center; }
-        .wallet-info h4 { font-size: 12px; color: #aaa; font-weight: 400; letter-spacing: 0.5px; }
-        .wallet-info .points { font-size: 30px; font-weight: 700; color: #ffca28; }
-        .wallet-badge { background: rgba(255,255,255,0.15); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; color: #fff; }
+        /* การ์ดพอยต์สะสมดิจิทัล */
+        .wallet-card { background: linear-gradient(135deg, #111, #333); color: white; border-radius: 15px; padding: 15px 20px; margin-top: -20px; margin-bottom: 20px; box-shadow: 0 8px 15px rgba(0,0,0,0.2); display: flex; justify-content: space-between; align-items: center; }
+        .wallet-info h4 { font-size: 11px; color: #aaa; font-weight: 400; text-transform: uppercase; }
+        .wallet-info .points { font-size: 26px; font-weight: 700; color: #ffca28; }
+        .wallet-badge { background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 20px; font-size: 11px; }
 
-        /* พื้นที่เรียกใช้กล้องมือถือถ่ายภาพ */
-        .camera-container { background: #000; border-radius: 15px; overflow: hidden; margin-bottom: 15px; display: none; position: relative; border: 3px solid #26a69a; }
-        video { width: 100%; height: 260px; object-fit: cover; }
-        .camera-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 30px solid rgba(0,0,0,0.4); display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .capture-window { width: 160px; height: 160px; border: 3px dashed #fff; border-radius: 12px; position: relative; }
-        .capture-hint { color: white; font-size: 12px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 10px; margin-top: 10px; }
+        /* ระบบเปิดกล้องถ่ายภาพ */
+        .camera-container { background: #000; border-radius: 15px; overflow: hidden; margin-bottom: 15px; display: none; position: relative; }
+        video { width: 100%; height: 230px; object-fit: cover; }
+        .camera-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 30px solid rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; }
+        .capture-window { width: 160px; height: 160px; border: 3px dashed #26a69a; border-radius: 10px; }
 
-        /* ปุ่มหลักในการควบคุมการกระทำ */
-        .btn-action { background: #26a69a; color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 6px rgba(38,166,154,0.15); margin-bottom: 20px; }
-        .btn-action.active-cam { background: #e53935; box-shadow: 0 4px 6px rgba(229,57,53,0.15); }
-
-        /* จัดการการแสดงผลหน้าเพจแบบแท็บ */
+        /* สไตล์การ์ดรายการภารกิจและร้านค้า */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .item-card { background: white; padding: 15px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .item-main { display: flex; gap: 12px; align-items: center; }
+        .item-icon { width: 50px; height: 50px; background: #e0f2f1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #26a69a; font-size: 20px; }
+        .item-info h4 { font-size: 14px; color: #004d40; margin-bottom: 4px; }
+        .item-info p { font-size: 12px; color: #666; }
+        .btn-card { background: #26a69a; color: white; border: none; padding: 8px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+        .btn-card.orange { background: #ff9800; }
 
-        /* รายการการ์ดภารกิจและร้านค้า */
-        .item-card { background: white; padding: 15px; border-radius: 14px; margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.03); display: flex; gap: 15px; align-items: center; justify-content: space-between; border: 1px solid #f0f0f0; }
-        .item-main { display: flex; gap: 15px; align-items: center; }
-        .item-icon { width: 55px; height: 55px; background: #e0f2f1; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #26a69a; font-size: 20px; flex-shrink: 0; }
-        .item-info h4 { font-size: 15px; color: #004d40; margin-bottom: 4px; font-weight: 600; }
-        .item-info p { font-size: 12px; color: #666; line-height: 1.4; }
-        .item-info .reward-tag { display: inline-block; background: #e8f5e9; color: #2e7d32; font-size: 11px; padding: 2px 8px; border-radius: 5px; margin-top: 5px; font-weight: 600; }
-        .item-info .cost-tag { display: inline-block; background: #fff3e0; color: #e65100; font-size: 11px; padding: 2px 8px; border-radius: 5px; margin-top: 5px; font-weight: 600; }
-        
-        .btn-task { background: #0288d1; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
-        .btn-task.done { background: #b0bec5; color: white; cursor: not-allowed; }
-        .btn-redeem { background: #ff9800; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; flex-shrink: 0; box-shadow: 0 2px 4px rgba(255,152,0,0.2); }
+        /* แดชบอร์ดสำหรับฝั่งร้านค้าชุมชน */
+        .shop-dashboard { padding: 15px; }
+        .shop-stat { background: white; padding: 20px; border-radius: 15px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 5px solid #0288d1; }
+        .shop-stat h3 { font-size: 13px; color: #666; }
+        .shop-stat .num { font-size: 36px; font-weight: 700; color: #0288d1; margin: 5px 0; }
 
-        /* การตั้งค่าหน้าแดชบอร์ดฝั่งร้านค้าชุมชน */
-        .shop-dashboard { display: none; padding: 15px; }
-        .shop-stat-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 20px; }
-        .shop-stat-card { background: white; padding: 22px; border-radius: 15px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.03); border-top: 5px solid #26a69a; }
-        .shop-stat-card h3 { font-size: 14px; color: #666; font-weight: 400; }
-        .shop-stat-card .num { font-size: 34px; font-weight: 700; color: #26a69a; margin: 8px 0; }
-
-        /* แถบควบคุมการเปลี่ยนหน้าด้านล่างสุด (Bottom Navigation) */
-        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -3px 12px rgba(0,0,0,0.05); border-top-left-radius: 16px; border-top-right-radius: 16px; z-index: 1000; }
-        .nav-link { text-decoration: none; color: #888; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: color 0.2s; }
-        .nav-link.active { color: #0288d1; font-weight: 600; }
-        .nav-link i { font-size: 20px; }
+        /* แถบเมนูนำทางด้านล่าง */
+        .bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; background: white; display: flex; justify-content: space-around; padding: 12px 0; box-shadow: 0 -3px 10px rgba(0,0,0,0.08); border-top-left-radius: 15px; border-top-right-radius: 15px; z-index: 1000; }
+        .nav-link { text-decoration: none; color: #888; font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
+        .nav-link.active { color: #0288d1; }
+        .nav-link i { font-size: 18px; }
     </style>
 </head>
 <body>
 
-    <!-- =======================================
-         1. หน้าจอเข้าสู่ระบบ (LOGIN SCREEN)
-         ======================================= -->
+    <!-- ================= หน้าจอที่ 1: เข้าสู่ระบบ (LOGIN) ================= -->
     <div id="loginPage" class="login-screen">
         <div class="login-logo"><i class="fa-solid fa-camera-retro"></i></div>
         <h2>เช็คอินแหลมโตนด</h2>
-        <p>ถ่ายรูปทำภารกิจสะสมพอยต์ แลกส่วนลดร้านค้า</p>
+        <p>ท่องเที่ยวชุมชนดิจิทัล สะสมพอยต์ แลกส่วนลด</p>
         
         <div class="role-selector">
-            <button id="roleCustomer" class="role-btn active" onclick="setRole('customer')">
-                <i class="fa-solid fa-user-astronaut"></i><span>นักท่องเที่ยว</span>
-            </button>
-            <button id="roleShop" class="role-btn" onclick="setRole('shop')">
-                <i class="fa-solid fa-store"></i><span>ร้านค้าที่ร่วมโครงการ</span>
-            </button>
+            <button id="roleCustomer" class="role-btn active" onclick="setRole('customer')">🙋‍♂️ นักท่องเที่ยว</button>
+            <button id="roleShop" class="role-btn" onclick="setRole('shop')">🏪 ร้านค้าชุมชน</button>
         </div>
 
         <div class="input-group">
             <label id="loginLabel">เบอร์โทรศัพท์มือถือ</label>
-            <input type="text" id="usernameInput" placeholder="กรอกเบอร์มือถือ หรือชื่อร้านค้า" value="089-765-4321">
+            <input type="text" id="usernameInput" placeholder="กรอกเบอร์โทรศัพท์ของคุณ" value="0812345678">
         </div>
         <div class="input-group">
-            <label>รหัสผ่านเข้าใช้งาน (PIN)</label>
+            <label>รหัสผ่าน (PIN 6 หลัก)</label>
             <input type="password" id="passwordInput" placeholder="••••••" value="123456">
         </div>
 
-        <button class="btn-login" onclick="handleLogin()">เข้าสู่ระบบดิจิทัลชุมชน</button>
+        <button class="btn-login" onclick="handleLogin()">เข้าสู่ระบบ</button>
     </div>
 
-
-    <!-- =======================================
-         2. หน้าหลักแอปพลิเคชันสำหรับ "นักท่องเที่ยว"
-         ======================================= -->
+    <!-- ================= หน้าจอแอปสำหรับ: นักท่องเที่ยว/ลูกค้า ================= -->
     <div id="customerApp" class="main-app">
         <header>
             <button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> ออกระบบ</button>
-            <h1 id="welcomeUser">ยินดีต้อนรับ นักเดินทาง</h1>
-            <p><i class="fa-solid fa-route"></i> ร่วมกิจกรรมส่งเสริมการท่องเที่ยวชุมชนดิจิทัล</p>
+            <h1 id="welcomeUser">ยินดีต้อนรับ นักท่องเที่ยว</h1>
+            <p>ทำภารกิจเช็คอินเพื่อรับพอยต์แลกของรางวัล</p>
         </header>
 
         <div class="container">
-            <!-- แสดงคะแนนพอยต์ปัจจุบัน -->
+            <!-- กระเป๋าคะแนนดิจิทัล -->
             <div class="wallet-card">
                 <div class="wallet-info">
-                    <h4>พอยต์สะสมของคุณในตอนนี้</h4>
+                    <h4>พอยต์สะสมของคุณ</h4>
+                    <div class="points" id="userPoints">0 <span style="font-size:14px; color:#fff; font-weight:normal;">Points</span></div>
+                </div>
+                <div class="wallet-badge"><i class="fa-solid fa-award"></i> ระดับทั่วไป</div>
+            </div>
+
+            <!-- กล่องเปิดระบบกล้องถ่ายภาพจริง (แชร์ร่วมกันในหน้าภารกิจ) -->
+            <div class="camera-container" id="cameraArea">
+                <video id="webcam" autoplay playsinline></video>
+                <div class="camera-overlay"><div class="capture-window"></div></div>
+                <p style="color:white; text-align:center; font-size:12px; position:absolute; bottom:10px; width:100%;">กรุณาจัดวางภาพให้อยู่ในกรอบ</p>
+            </div>
+
+            <!-- หน้าจอที่ 2: เลือกทำภารกิจเพื่อหาพอยต์ (MISSION TAB) -->
+            <div id="tab-missions" class="tab-content active">
+                <h3 style="font-size: 15px; margin-bottom: 12px; color: #004d40;"><i class="fa-solid fa-list-check"></i> รายการภารกิจตามล่าพอยต์</h3>
+                
+                <div class="item-card">
+                    <div class="item-main">
+                        <div class="item-icon"><i class="fa-solid fa-lighthouse"></i></div>
+                        <div class="item-info">
+                            <h4>ถ่ายรูปคู่ประภาคารแหลมโตนด</h4>
+                            <p style="color:#26a69a; font-weight:600;">+50 พอยต์</p>
+                        </div>
+                    </div>
+                    <button class="btn-card" id="btn-mission-1" onclick="startMission(1, 'ประภาคารแหลมโตนด', 50)">เริ่มภารกิจ</button>
+                </div>
+
+                <div class="item-card">
+                    <div class="item-main">
+                        <div class="item-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                        <div class="item-info">
+                            <h4>ถ่ายรูปจุดชมวิวต้นโตนดโบราณ</h4>
+                            <p style="color:#26a69a; font-weight:600;">+40 พอยต์</p>
+                        </div>
+                    </div>
+                    <button class="btn-card" id="btn-mission-2" onclick="startMission(2, 'ต้นโตนดโบราณ', 40)">เริ่มภารกิจ</button>
+                </div>
+
+                <div class="item-card">
+                    <div class="item-main">
